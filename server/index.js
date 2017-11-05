@@ -18,14 +18,20 @@ app.use(session(app));
 app.use(bodyParser());
 
 
-app.use(function *(next){
-    console.log(this.href);
-    console.log(this.method);
-    this.body = {
-        success : true
-    }
-    yield next;
-});
+var router = require('./config/routes')();
+
+
+app.use(router.routes())
+    .use(router.allowedMethods());
+
+// app.use(function *(next){
+//     console.log(this.href);
+//     console.log(this.method);
+//     this.body = {
+//         success : true
+//     }
+//     yield next;
+// });
 
 
 
